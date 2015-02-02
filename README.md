@@ -6,9 +6,9 @@ Test for Aranda Software company
 Setup
 ===========
 
-* You need install cocoapods in your mac, in the terminal run:
+* You need install cocoapods  pre-released version in your mac, in the terminal run:
 ```ruby
-$ sudo gem install cocoapods
+$ sudo gem install cocoapods --pre
 ```
 
 * install cocoapods for the project, in the project folder in the terminal run:

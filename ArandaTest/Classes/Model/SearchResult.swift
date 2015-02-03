@@ -34,19 +34,29 @@ class SearchResult: NSObject {
     
     init(dictionary:JSON) {
         super.init()
+        
         self.objectId = dictionary["id"].stringValue
-        self.originalName = dictionary["original_name"].stringValue
-        self.firtsAirDateString = dictionary["first_air_date"].stringValue
-        self.posterPath = dictionary["poster_path"].stringValue
-        self.popularity = dictionary["popularity"].floatValue
-        self.name = dictionary["name"].stringValue
         self.voteAverage = dictionary["vote_average"].floatValue
+        self.popularity = dictionary["popularity"].floatValue
+        self.posterPath = dictionary["poster_path"].stringValue
         self.voteCount = dictionary["vote_count"].intValue
+        
         if (dictionary["media_type"].stringValue == "tv")
         {
             self.mediaType = .TV
         }else{
             self.mediaType = .Movie
+        }
+        
+        if self.mediaType == .TV {
+            self.originalName = dictionary["original_name"].stringValue
+            self.firtsAirDateString = dictionary["first_air_date"].stringValue
+            self.name = dictionary["name"].stringValue
+        }else{
+            self.originalName = dictionary["original_title"].stringValue
+            self.firtsAirDateString = dictionary["release_date"].stringValue
+            self.name = dictionary["title"].stringValue
+
         }
         
     }

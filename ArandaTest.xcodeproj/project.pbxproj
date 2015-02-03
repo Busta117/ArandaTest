@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		524ACB9B1A802C86005E1AD8 /* resultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524ACB991A802C86005E1AD8 /* resultCollectionViewCell.swift */; };
+		5239C9EA1A8131FC00C43E32 /* resultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239C9E91A8131FC00C43E32 /* resultCollectionViewCell.swift */; };
+		5239C9EC1A8139E500C43E32 /* detailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239C9EB1A8139E500C43E32 /* detailViewController.swift */; };
 		52B60CD81A801A5E00A8D11F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B60CD71A801A5E00A8D11F /* BaseViewController.swift */; };
 		52CE347C1A7FDF8300F339B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CE347B1A7FDF8300F339B9 /* AppDelegate.swift */; };
 		52CE34831A7FDF8300F339B9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52CE34821A7FDF8300F339B9 /* Images.xcassets */; };
@@ -22,7 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		524ACB991A802C86005E1AD8 /* resultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resultCollectionViewCell.swift; sourceTree = "<group>"; };
+		5239C9E91A8131FC00C43E32 /* resultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resultCollectionViewCell.swift; sourceTree = "<group>"; };
+		5239C9EB1A8139E500C43E32 /* detailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailViewController.swift; sourceTree = "<group>"; };
 		52B60CD71A801A5E00A8D11F /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		52CE34761A7FDF8300F339B9 /* ArandaTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArandaTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52CE347A1A7FDF8300F339B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,10 +55,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		524ACB981A802C77005E1AD8 /* View */ = {
+		5239C9E81A8131E700C43E32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				524ACB991A802C86005E1AD8 /* resultCollectionViewCell.swift */,
+				5239C9E91A8131FC00C43E32 /* resultCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -116,7 +118,7 @@
 				52CE34A31A7FE6B800F339B9 /* Model */,
 				52CE34A11A7FE6B800F339B9 /* Controller */,
 				52CE34A41A7FE6B800F339B9 /* Storyboard */,
-				524ACB981A802C77005E1AD8 /* View */,
+				5239C9E81A8131E700C43E32 /* View */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -126,6 +128,7 @@
 			children = (
 				52B60CD61A801A4100A8D11F /* BaseControllers */,
 				52CE34A91A7FE74500F339B9 /* SearchViewController.swift */,
+				5239C9EB1A8139E500C43E32 /* detailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -287,12 +290,13 @@
 			files = (
 				52CE34AA1A7FE74500F339B9 /* SearchViewController.swift in Sources */,
 				52CE34B51A80033E00F339B9 /* ARHTTPRequestOperationManager.swift in Sources */,
-				524ACB9B1A802C86005E1AD8 /* resultCollectionViewCell.swift in Sources */,
+				5239C9EC1A8139E500C43E32 /* detailViewController.swift in Sources */,
 				52CE34B31A7FFD3500F339B9 /* ArandaUtilities.swift in Sources */,
 				52CE34B11A7FFC4600F339B9 /* SearchResult.swift in Sources */,
 				52CE34B81A80045300F339B9 /* SwiftyJSON.swift in Sources */,
 				52B60CD81A801A5E00A8D11F /* BaseViewController.swift in Sources */,
 				52CE347C1A7FDF8300F339B9 /* AppDelegate.swift in Sources */,
+				5239C9EA1A8131FC00C43E32 /* resultCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

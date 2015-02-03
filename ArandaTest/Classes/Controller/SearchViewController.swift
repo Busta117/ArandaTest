@@ -26,6 +26,9 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
 //        tableView.registerNib(UINib(nibName: "SearchResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultTableViewCell")
     }
     
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
     override func configureAppereance() {
         super.configureAppereance()
@@ -55,8 +58,12 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCollectionViewCell", forIndexPath: indexPath)
+        var cell: resultCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCollectionViewCell", forIndexPath: indexPath) as resultCollectionViewCell
         
+        
+        var entity: SearchResult = searchResults[indexPath.row] as SearchResult
+        
+        cell.setResult(entity)
         
         return cell as UICollectionViewCell
         
@@ -66,6 +73,19 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     }
     
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        var entity: SearchResult = searchResults[indexPath.row] as SearchResult
+        
+        if entity.mediaType == SearchMediaType.Movie {
+            UIAlertView.showAlert("Demo", message: "Demo is not available to movies", cancelButton: "OK")
+            return
+        }
+        
+        performSegueWithIdentifier("resultDetailSegue", sender: nil)
+        
+    }
+    
     func SBSearchBarSearchButtonClicked(searchBar: SBSearchBar!) {
         searchBar.resignFirstResponder()
         if !searchBar.text.isEmpty{
@@ -74,8 +94,11 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
             
             SearchResult.searchWithQuery(searchBar.text, complete: { (results, error) -> () in
                 SVProgressHUD.dismiss()
-                self.searchResults = results
-                self.collectionView.reloadData()
+                
+                if error == nil {
+                    self.searchResults = results
+                    self.collectionView.reloadData()
+                }
                 
             })
             
@@ -87,13 +110,5 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         searchBar.resignFirstResponder()
     }
     
-//    func calculateHeightForConfiguredSizingCell(cell: UITableViewCell) -> CGFloat{
-//        cell.bounds = CGRectMake(0.0, 0.0, CGRectGetWidth(tableView.bounds), 0.0)
-//        cell.setNeedsLayout()
-//        cell.layoutIfNeeded()
-//        cell.layoutSubviews()
-//        var size: CGSize = cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingExpandedSize)
-//        return size.height
-//    }
     
 }

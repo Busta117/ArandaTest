@@ -69,3 +69,11 @@ extension String{
         return formatter.stringFromNumber(self.floatValue)!
     }
 }
+
+extension UIAlertView {
+    
+    class func showAlert(title:String?, message:String?, cancelButton:String){
+        var alert:UIAlertView = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButton)
+        alert.show()
+    }
+}

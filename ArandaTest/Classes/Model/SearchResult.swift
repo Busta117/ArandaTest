@@ -62,7 +62,7 @@ class SearchResult: NSObject {
     }
     
     
-    class func searchWithQuery(query:String, complete:(results:Array<SearchResult>!, error:NSError?)->()){
+    class func searchWithQuery(query:String, complete:(results:Array<SearchResult>?, error:NSError?)->()){
         
         
         var url:String = ArUrlBase + "search/multi"
@@ -82,7 +82,7 @@ class SearchResult: NSObject {
             complete(results: results, error: nil)
             
             }) { (operation:AFHTTPRequestOperation!, error:NSError!) -> Void in
-            println("sssss")
+            complete(results: nil, error: error)
         }
         
     }

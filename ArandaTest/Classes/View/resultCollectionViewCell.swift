@@ -25,4 +25,5 @@ class resultCollectionViewCell: UICollectionViewCell {
         titleLabel.text = ""
     }
     
+    
 }

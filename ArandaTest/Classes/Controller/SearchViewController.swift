@@ -16,6 +16,8 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     
     var searchResults:Array<SearchResult> = Array<SearchResult>()
     
+    var resultSelected: SearchResult!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +25,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     }
     
     func registerCells(){
-//        tableView.registerNib(UINib(nibName: "SearchResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultTableViewCell")
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -82,6 +84,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
             return
         }
         
+        resultSelected = entity
         performSegueWithIdentifier("resultDetailSegue", sender: nil)
         
     }
@@ -96,7 +99,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
                 SVProgressHUD.dismiss()
                 
                 if error == nil {
-                    self.searchResults = results
+                    self.searchResults = results!
                     self.collectionView.reloadData()
                 }
                 
@@ -110,5 +113,17 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         searchBar.resignFirstResponder()
     }
     
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+        if (segue.identifier == "resultDetailSegue"){
+            var detailController: detailViewController = segue.destinationViewController as detailViewController
+            detailController.searchResultEntity = resultSelected
+            
+        }
+        
+    }
     
 }

@@ -13,6 +13,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     var searchBarCustom:SBSearchBar!
     var searchResults:Array<SearchResult> = Array<SearchResult>()
     var resultSelected: SearchResult!
+    var downloading:Bool = false
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noResultsLabel: UILabel!
@@ -32,6 +33,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         
         noResultsLabel.hidden = true
         
+        
         searchBarCustom = SBSearchBar(frame: CGRectMake(5, 25, 310, 50))
         searchBarCustom.delegate = self
         
@@ -50,16 +52,61 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         
     }
     
+    func downloadNext(){
+        downloading = true
+        
+        if !ArandaUtilities.validateQuery(searchBarCustom.text){
+            UIAlertView.showAlert("Error", message: "Remove any special character and try again", cancelButton: "OK")
+            return
+        }
+        
+        self.noResultsLabel.hidden = true
+        
+        var nextPage:Int = 1
+        if self.searchResults.count > 0{
+            if searchResults.last?.page < searchResults.last?.totalPages{
+                nextPage = searchResults.last!.page + 1
+            }else{
+                return
+            }
+        }else{
+            SVProgressHUD.showWithMaskType(SVProgressHUDMaskType.Gradient)
+        }
+        
+        SearchResult.searchWithQuery(searchBarCustom.text, page: nextPage, complete: { (results, error) -> () in
+            SVProgressHUD.dismiss()
+            
+            self.downloading = false
+            
+            if error == nil {
+                self.searchResults += results!
+                if self.searchResults.count == 0{
+                    self.noResultsLabel.hidden = false
+                }else{
+                    self.collectionView.reloadData()
+                }
+            }else{
+                UIAlertView.showAlert("Something is wrong", message: "Try again later", cancelButton: "OK")
+                
+            }
+            
+        })
+        
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         var cell: resultCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCollectionViewCell", forIndexPath: indexPath) as resultCollectionViewCell
         
-        
         var entity: SearchResult = searchResults[indexPath.row] as SearchResult
-        
         cell.setResult(entity)
+        
+        if indexPath.row == searchResults.count - 1 && !downloading{
+            downloadNext()
+        }
+        
         
         return cell as UICollectionViewCell
         
@@ -88,27 +135,11 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
     
     func SBSearchBarSearchButtonClicked(searchBar: SBSearchBar!) {
         searchBar.resignFirstResponder()
+        searchResults.removeAll(keepCapacity: false)
+        collectionView.reloadData()
+        
         if !searchBar.text.isEmpty{
-            
-            SVProgressHUD.showWithMaskType(SVProgressHUDMaskType.Gradient)
-            self.noResultsLabel.hidden = true
-            
-            SearchResult.searchWithQuery(searchBar.text, complete: { (results, error) -> () in
-                SVProgressHUD.dismiss()
-                
-                if error == nil {
-                    if results!.count == 0 {
-                        self.noResultsLabel.hidden = false
-                    }
-                    self.searchResults = results!
-                    self.collectionView.reloadData()
-                }else{
-                    UIAlertView.showAlert("Something is wrong", message: "Try again later", cancelButton: "OK")
-                    
-                }
-                
-            })
-            
+            downloadNext()
         }
         
     }

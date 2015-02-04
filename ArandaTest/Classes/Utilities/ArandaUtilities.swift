@@ -8,6 +8,29 @@
 
 import UIKit
 
+class ArandaUtilities {
+    
+    //validate search query
+    class func validateQuery(query: String) -> Bool {
+        
+        let regexString: String = "^(?=.*[!@#$%&_]).*$"
+        
+        var result : Bool = true
+        if !query.isEmpty{
+            if  query.isMatchedByRegex(regexString){
+                result = false
+            }
+            
+        }
+        
+        return result
+        
+    }
+    
+    
+}
+
+
 extension NSDate {
     
     
@@ -68,6 +91,20 @@ extension String{
         formatter.locale = NSLocale(localeIdentifier: "en_US")
         return formatter.stringFromNumber(self.floatValue)!
     }
+    
+    
+    func isMatchedByRegex(regexExpression :String) -> Bool {
+        
+        let pattern: String = regexExpression
+        var error: NSError?
+        let internalExpression: NSRegularExpression = NSRegularExpression(pattern: pattern, options: .CaseInsensitive, error: &error)!
+        
+        let matches = internalExpression.matchesInString(self, options: nil, range:NSMakeRange(0, countElements(self)))
+        return matches.count > 0
+        
+    }
+
+    
 }
 
 extension UIAlertView {

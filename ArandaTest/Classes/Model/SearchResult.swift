@@ -30,6 +30,8 @@ class SearchResult: NSObject {
     var voteAverage: Float!
     var voteCount: Int!
     var mediaType: SearchMediaType!
+    var page:Int!
+    var totalPages:Int!
     
     
     init(dictionary:JSON) {
@@ -62,11 +64,11 @@ class SearchResult: NSObject {
     }
     
     
-    class func searchWithQuery(query:String, complete:(results:Array<SearchResult>?, error:NSError?)->()){
+    class func searchWithQuery(query:String, page:Int, complete:(results:Array<SearchResult>?, error:NSError?)->()){
         
         
         var url:String = ArUrlBase + "search/multi"
-        var params:[String:String] = ["api_key":ArAPIKey, "query":query]
+        var params:[String:String] = ["api_key":ArAPIKey, "query":query, "page":String(page)]
         
         
         ARHTTPRequestOperationManager.sharedManager.GET(url, parameters: params, success: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!) -> Void in
@@ -76,7 +78,10 @@ class SearchResult: NSObject {
             var results:Array<SearchResult> = Array<SearchResult>()
             
             for (index: String, subJson: JSON) in json["results"] {
-                results.append(SearchResult(dictionary: subJson))
+                var obj:SearchResult = SearchResult(dictionary: subJson)
+                obj.page = json["page"].intValue
+                obj.totalPages = json["total_pages"].intValue
+                results.append(obj)
             }
             
             complete(results: results, error: nil)

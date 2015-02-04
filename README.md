@@ -3,6 +3,8 @@ Aranda Test
 
 Test for Aranda Software company
 
+![alt tag](https://raw.githubusercontent.com/Busta117/ArandaTest/master/preview.png)
+
 Setup
 ===========
 

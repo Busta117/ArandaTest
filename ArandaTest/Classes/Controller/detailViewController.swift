@@ -45,7 +45,7 @@ class detailViewController: BaseTableViewController {
                     self.loadSeasonEpisodes(seasonNumber: detail!.seasons[0].seasonNumber)
                 }else{
                     SVProgressHUD.dismiss()
-                    UIAlertView.showAlert(nil, message: "This serie does not have seasons", cancelButton: "OK")
+                    UIAlertController.showAlert(nil, message: "This serie does not have seasons", cancelButton: "OK")
                 }
             }
             
@@ -61,7 +61,7 @@ class detailViewController: BaseTableViewController {
                 self.seasonEntity = seasonEntity
                 self.tableView.reloadData()
             }else{
-                UIAlertView.showAlert(nil, message: "No season info", cancelButton: "OK")
+                UIAlertController.showAlert(nil, message: "No season info", cancelButton: "OK")
             }
             
             

@@ -56,7 +56,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         downloading = true
         
         if !ArandaUtilities.validateQuery(searchBarCustom.text){
-            UIAlertView.showAlert("Error", message: "Remove any special character and try again", cancelButton: "OK")
+            UIAlertController.showAlert("Error", message: "Remove any special character and try again", cancelButton: "OK")
             return
         }
         
@@ -86,7 +86,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
                     self.collectionView.reloadData()
                 }
             }else{
-                UIAlertView.showAlert("Something is wrong", message: "Try again later", cancelButton: "OK")
+                UIAlertController.showAlert("Something is wrong", message: "Try again later", cancelButton: "OK")
                 
             }
             
@@ -122,7 +122,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         var entity: SearchResult = searchResults[indexPath.row] as SearchResult
         
         if entity.mediaType == SearchMediaType.Movie {
-            UIAlertView.showAlert("Demo", message: "Demo is not available to movies", cancelButton: "OK")
+            UIAlertController.showAlert("Demo", message: "Demo is not available to movies", cancelButton: "OK")
             return
         }
         

@@ -107,10 +107,24 @@ extension String{
     
 }
 
-extension UIAlertView {
-    
+extension UIAlertController{
     class func showAlert(title:String?, message:String?, cancelButton:String){
-        var alert:UIAlertView = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButton)
-        alert.show()
+        var alert:UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
+        }
+        alert.addAction(OKAction)
+        
+        let appDelegate  = UIApplication.sharedApplication().delegate as AppDelegate
+        let viewController:UIViewController = appDelegate.window!.rootViewController! as UIViewController
+        
+        viewController.presentViewController(alert, animated: true, completion: nil)
     }
 }
+
+//extension UIAlertView {
+//    
+//    class func showAlert(title:String?, message:String?, cancelButton:String){
+//        var alert:UIAlertView = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButton)
+//        alert.show()
+//    }
+//}

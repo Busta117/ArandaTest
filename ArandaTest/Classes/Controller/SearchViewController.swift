@@ -11,21 +11,14 @@ import UIKit
 class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     var searchBarCustom:SBSearchBar!
+    var searchResults:Array<SearchResult> = Array<SearchResult>()
+    var resultSelected: SearchResult!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var searchResults:Array<SearchResult> = Array<SearchResult>()
-    
-    var resultSelected: SearchResult!
+    @IBOutlet weak var noResultsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        registerCells()
-    }
-    
-    func registerCells(){
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -36,8 +29,8 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         super.configureAppereance()
         
         navigationController?.navigationBarHidden = true
-//        tableView.tableFooterView = UIView()
         
+        noResultsLabel.hidden = true
         
         searchBarCustom = SBSearchBar(frame: CGRectMake(5, 25, 310, 50))
         searchBarCustom.delegate = self
@@ -57,6 +50,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         
     }
     
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
@@ -74,6 +68,7 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         return searchResults.count
     }
     
+    // MARK: - UIColectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
@@ -89,18 +84,27 @@ class SearchViewController: BaseViewController, SBSearchBarDelegate, UICollectio
         
     }
     
+    // MARK: - SBSearchBarDelegate
+    
     func SBSearchBarSearchButtonClicked(searchBar: SBSearchBar!) {
         searchBar.resignFirstResponder()
         if !searchBar.text.isEmpty{
             
             SVProgressHUD.showWithMaskType(SVProgressHUDMaskType.Gradient)
+            self.noResultsLabel.hidden = true
             
             SearchResult.searchWithQuery(searchBar.text, complete: { (results, error) -> () in
                 SVProgressHUD.dismiss()
                 
                 if error == nil {
+                    if results!.count == 0 {
+                        self.noResultsLabel.hidden = false
+                    }
                     self.searchResults = results!
                     self.collectionView.reloadData()
+                }else{
+                    UIAlertView.showAlert("Something is wrong", message: "Try again later", cancelButton: "OK")
+                    
                 }
                 
             })

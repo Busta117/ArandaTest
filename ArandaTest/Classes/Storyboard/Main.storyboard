@@ -84,12 +84,24 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="n22-nc-Db7"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz0-ZT-tPj">
+                                <rect key="frame" x="148" y="258" width="305" height="84"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="305" id="Gv0-b7-6Sd"/>
+                                    <constraint firstAttribute="height" constant="84" id="wwd-37-mv0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Knb-np-UvB" secondAttribute="bottom" id="6wm-Tb-Adc"/>
+                            <constraint firstAttribute="centerX" secondItem="fz0-ZT-tPj" secondAttribute="centerX" id="Fko-gC-kyO"/>
                             <constraint firstItem="Knb-np-UvB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Yv5-ss-eht"/>
                             <constraint firstAttribute="trailing" secondItem="Knb-np-UvB" secondAttribute="trailing" id="aUO-1x-XDX"/>
+                            <constraint firstAttribute="centerY" secondItem="fz0-ZT-tPj" secondAttribute="centerY" id="pc6-2i-2gc"/>
                             <constraint firstAttribute="trailing" secondItem="3F4-Ad-wZo" secondAttribute="trailing" constant="9" id="r84-BP-hPV"/>
                             <constraint firstItem="3F4-Ad-wZo" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="36" id="t6g-Hm-5pK"/>
                             <constraint firstItem="3F4-Ad-wZo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="35" id="yFi-yR-NOy"/>
@@ -100,6 +112,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Knb-np-UvB" id="zUT-8O-Mus"/>
+                        <outlet property="noResultsLabel" destination="fz0-ZT-tPj" id="Y3t-cI-usL"/>
                         <segue destination="2tr-wS-hAa" kind="show" identifier="resultDetailSegue" id="7RU-6J-8Z6"/>
                     </connections>
                 </viewController>

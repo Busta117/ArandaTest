@@ -27,13 +27,14 @@ class detailViewController: BaseTableViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         title = searchResultEntity.name
         
-        
     }
     
     override func registerCells() {
         super.registerCells()
     }
 
+    // MARK: - Class Methods
+    
     func loadDetail(){
         SVProgressHUD.showWithMaskType(SVProgressHUDMaskType.Gradient)
         SerieDetail.getDetail(searchResultEntity.objectId.toInt()!, complete: { (detail:SerieDetail?, error:NSError?) -> () in
@@ -51,12 +52,30 @@ class detailViewController: BaseTableViewController {
         })
     }
     
+    
+    func loadSeasonEpisodes(seasonNumber season:Int){
+        Season.getDetail(serieId: serieDetailEntity!.objectId.toInt()!, seasonNumber: season) { (seasonEntity:Season?, error:NSError?) -> () in
+            SVProgressHUD.dismiss()
+            if seasonEntity != nil{
+                self.serieDetailEntity?.setSeasonSelected(season)
+                self.seasonEntity = seasonEntity
+                self.tableView.reloadData()
+            }else{
+                UIAlertView.showAlert(nil, message: "No season info", cancelButton: "OK")
+            }
+            
+            
+        }
+    }
+    
+    // MARK: - UITableViewDataSource
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if serieDetailEntity == nil{
             return 0
         }
         
-        return 293
+        return 298
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -106,20 +125,7 @@ class detailViewController: BaseTableViewController {
     }
     
     
-    func loadSeasonEpisodes(seasonNumber season:Int){
-        Season.getDetail(serieId: serieDetailEntity!.objectId.toInt()!, seasonNumber: season) { (seasonEntity:Season?, error:NSError?) -> () in
-            SVProgressHUD.dismiss()
-            if seasonEntity != nil{
-                self.serieDetailEntity?.setSeasonSelected(season)
-                self.seasonEntity = seasonEntity
-                self.tableView.reloadData()
-            }else{
-                UIAlertView.showAlert(nil, message: "No season info", cancelButton: "OK")
-            }
-            
-            
-        }
-    }
+    
     
     
     

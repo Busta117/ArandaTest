@@ -31,7 +31,7 @@ class SerieDetailHeaderView: UIView {
             coverImageView.setImageWithURL(NSURL(string: ArImageUrlBase + entity.backdropPath))
         }
         
-        
+    
         genreLabel.text = ""
         for genre:String in entity.genres{
             genreLabel.text = genre + ", " + genreLabel.text!
@@ -53,6 +53,10 @@ class SerieDetailHeaderView: UIView {
             }
             
             but.addTarget(self, action: "seasonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            
+            but.layer.masksToBounds = true
+            but.layer.cornerRadius = CGRectGetWidth(but.frame)/2
+            
             scrollView.addSubview(but)
             
         }
